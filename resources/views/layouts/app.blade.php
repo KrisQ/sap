@@ -78,7 +78,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                 </ul>
                 {{-- MOBILE --}}
-                <ul class="sidenav" id="mobile-demo">
+                <ul class="right hide-on-med-and-down">
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 </ul>
@@ -100,8 +100,8 @@
               </ul>
               {{-- MOBILE --}}
               <ul class="sidenav" id="mobile-demo">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
-                <ul id="dropdown1" class="dropdown-content">
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+                <ul id="dropdown2" class="dropdown-content">
                   <li>
                       <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                           Logout
