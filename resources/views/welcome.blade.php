@@ -3,11 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <span class="flow-text">Welcome</span>
-        <p>Your applications landing page</p>
-    </div>
-    <div class="row">
-      <input type="text" name="" value="">
+      <div class="col l6 s6 card">
+          <h4>Welcome {{$user->role->name}}</h4>
+          <p>Your application's landing page</p>
+      </div>
     </div>
 </div>
 @endsection

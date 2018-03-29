@@ -17,57 +17,20 @@
                 min-height: 100vh;
                 flex-direction: column;
             }
-
             main {
                 flex: 1 0 auto;
             }
-
+            @media screen and (min-width: 988px){
+              .nav-wrapper{
+                margin-left: 100px;
+                margin-right: 100px;
+              }
+            }
         </style>
     </head>
     <body>
-        {{-- <nav class="cyan darken-2" role="navigation">
-            <div class="nav-wrapper container">
-                @guest
-                    <!-- Expanded navigation -->
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                    </ul>
-                    <!-- Collapsed navigation -->
-                    <ul id="nav-mobile" class="side-nav">
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                    </ul>
-                @else
-                    <!-- Expanded navigation -->
-                    <ul class="right hide-on-med-and-down">
-                        <li>
-                            <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                    <!-- Collapsed navigation -->
-                    <ul id="nav-mobile" class="side-nav">
-                        <li>
-                            <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                @endguest
-            </div>
-        </nav> --}}
-
-
         <nav>
-          <div class="nav-wrapper container">
+          <div class="nav-wrapper">
             <!-- Navigation Branding -->
             <a id="logo-container" href="{{ url('/') }}" class="brand-logo">Sapient</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -78,7 +41,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                 </ul>
                 {{-- MOBILE --}}
-                <ul class="right hide-on-med-and-down">
+                <ul class="sidenav" id="mobile-demo">
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 </ul>
@@ -86,12 +49,13 @@
               {{-- NORMAL --}}
               <ul class="right hide-on-med-and-down">
                 <!-- Dropdown Trigger -->
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="/home">Home</a></li>
+
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">  <i class="material-icons">person arrow_drop_down</i></a></li>
                 <ul id="dropdown1" class="dropdown-content">
+                  <li><a href="#">Settings</a></li>
                   <li>
-                      <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                          Logout
-                      </a>
+                      <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                           {{ csrf_field() }}
                       </form>
@@ -100,7 +64,7 @@
               </ul>
               {{-- MOBILE --}}
               <ul class="sidenav" id="mobile-demo">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Profile<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown2"><i class="material-icons">person arrow_drop_down</i></a></li>
                 <ul id="dropdown2" class="dropdown-content">
                   <li>
                       <a class="waves-effect" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -112,13 +76,9 @@
                   </li>
                 </ul>
               </ul>
-
           @endguest
           </div>
         </nav>
-
-
-
         <br>
         <main>
             @yield('content')
@@ -143,21 +103,17 @@
             </div>
             <div class="footer-copyright">
                 <div class="container">
-                    <span class="white-text">Made by : <a class="blue-text text-lighten-4" href="http://kristennquem.com">Kristenn Quemener</a></span>
+                    <span class="white-text">Made by : <a  href="http://kristennquem.com">Kristenn Quemener</a></span>
                 </div>
             </div>
         </footer>
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
         <script src="{{ URL::asset('/js/materialize.js') }}" type="text/javascript"></script>
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js" type="text/javascript"></script> --}}
-
         <script>
             $(document).ready(function() {
-                // Materialize.updateTextFields();
                 $(".dropdown-trigger").dropdown();
                 $('.sidenav').sidenav();
-
             });
             @if(session('status'))
                 Materialize.toast('{{ session("status") }}', 4000);
