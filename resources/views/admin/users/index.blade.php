@@ -8,7 +8,7 @@
           <div class="card">
             <div class="card-content">
               <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
-                <form class="col s12">
+                <form id="createUserModalForm" class="col s12">
                   <input id="token" type="hidden" name="_token" value="{{csrf_token()}}">
                   <div id="createUserModal" class="modal modal-fixed-footer">
                   <div class="modal-content">
@@ -83,6 +83,16 @@
     $('#userTable').DataTable( {
        "ajax": "/ajax_user",
        "deferRender": true
+    });
+    $('#newUser').click(function(){
+      $.ajax({
+        method: 'POST',
+        data: $('#createUserModalForm').serialize(),
+        url: '/ajax_store',
+        success: function(data) {
+          console.log(data);
+        }
+      });
     });
     $('.modal').modal();
     $('select').formSelect();

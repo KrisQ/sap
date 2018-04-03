@@ -6,17 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
-use Validator;
-use Response;
+use App\Http\Requests\UserRequest;
 
 class AdminUserController extends Controller
 {
 
-    protected $rules = [
-      'name' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
-      'email' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
-      'password' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
-    ];
+    // protected $rules = [
+    //   'name' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
+    //   'email' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
+    //   'password' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
+    // ];
 
     /**
      * Display a listing of the resource.
@@ -47,7 +46,7 @@ class AdminUserController extends Controller
       $returnData = array(
         'data' => $data
       );
-      return response()->json($returnData);
+      return $returnData;
     }
 
     /**
@@ -56,15 +55,15 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function ajax_store(UserRequest $request)
     {
-      $validator = Validator::make(Input::all(), $this->rules);
       $user = new User();
       $user->name = $request->name;
       $user->email = $request->email;
       $user->password = $request->password;
       $user->role_id = $request->role_id;
       $user->save();
+      return $request;
     }
 
     /**
