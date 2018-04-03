@@ -9,22 +9,22 @@
             <div class="card-content">
               <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
                 <form class="col s12">
-                  @csrf
+                  <input id="token" type="hidden" name="_token" value="{{csrf_token()}}">
                   <div id="createUserModal" class="modal modal-fixed-footer">
                   <div class="modal-content">
                     <h4>New User</h4>
                     <hr>
                      <div class="row">
                        <div class="input-field col s4">
-                         <input name="name" type="text" class="validate">
+                         <input id="name" name="name" type="text" class="validate">
                          <label for="name">Name:</label>
                        </div>
                        <div class="input-field col s4">
-                         <input name="password" type="password" class="validate">
+                         <input id="password" name="password" type="password" class="validate">
                          <label for="password">Password</label>
                        </div>
                        <div class="input-field col s4">
-                         <select name="role_id">
+                         <select id="role_id" name="role_id">
                            <option value="" disabled selected>SELECT</option>
                             @foreach ($roles as $role)
                             <option value="{{$role->id}}">{{$role->name}}</option>
@@ -35,7 +35,7 @@
                      </div>
                      <div class="row">
                        <div class="input-field col s12">
-                         <input name="email" type="email" class="validate">
+                         <input id="email" name="email" type="email" class="validate">
                          <label for="email">Email</label>
                        </div>
                      </div>
@@ -53,7 +53,7 @@
                   </div>
                   <div class="modal-footer">
                     <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
-                    <input class="waves-effect waves-orange waves-orange btn-flat" type="submit" value="Create">
+                    <input class="waves-effect waves-orange waves-orange btn-flat" id="newUser" type="button" value="Create">
                   </div>
                 </div>
               </form>
@@ -80,14 +80,13 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-
     $('#userTable').DataTable( {
        "ajax": "/ajax_user",
        "deferRender": true
     });
-
     $('.modal').modal();
     $('select').formSelect();
+
   });
 </script>
 @endsection
