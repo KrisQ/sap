@@ -9,11 +9,15 @@
             <div class="card-content">
               <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
                 <form id="createUserModalForm" class="col s12">
-                  <input id="token" type="hidden" name="_token" value="{{csrf_token()}}">
+                  {{ csrf_field() }}
+                  {{-- CREATE MODAL --}}
                   <div id="createUserModal" class="modal modal-fixed-footer">
                   <div class="modal-content">
                     <h4>New User</h4>
                     <hr>
+                    <div class="message">
+
+                    </div>
                      <div class="row">
                        <div class="input-field col s4">
                          <input id="name" name="name" type="text" class="validate">
@@ -57,7 +61,6 @@
                   </div>
                 </div>
               </form>
-
               <br><br>
               <table id="userTable" class="striped">
                 <thead>
@@ -80,18 +83,60 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#userTable').DataTable( {
-       "ajax": "/ajax_user",
+    var oTable = $('#userTable').DataTable( {
+       "ajax": "/users/ajax_user",
        "deferRender": true
     });
+    //CREATE
     $('#newUser').click(function(){
       $.ajax({
         method: 'POST',
         data: $('#createUserModalForm').serialize(),
-        url: '/ajax_store',
+        url: '/users/ajax_store',
         success: function(data) {
           console.log(data);
-        }
+          if (data.errors) {
+            $(".message").html(data.html);
+          } else {
+            $(".message").html(data.html);
+            oTable.ajax.reload( null, false );
+          }
+        },
+      });
+    });
+    //EDIT
+    $('#newUser').click(function(){
+      $.ajax({
+        method: 'POST',
+        data: $('#editUserModalForm').serialize(),
+        url: '/users/ajax_store',
+        success: function(data) {
+          console.log(data);
+          if (data.errors) {
+            $(".message").html(data.html);
+          } else {
+            $(".message").html(data.html);
+            oTable.ajax.reload( null, false );
+          }
+        },
+      });
+    });
+    //DELETE
+    $('table').on('click','.delete',function(){
+      var id = $(this).data("id");
+      var token = $(this).data("token");
+      console.log(id);
+      $.ajax({
+        type: 'DELETE',
+        data: {
+            "id": id,
+            "_method": 'DELETE',
+            "_token": token,
+        },
+        url: '/users/ajax_delete/'+id,
+        success: function(data) {
+          oTable.ajax.reload( null, false );
+        },
       });
     });
     $('.modal').modal();
