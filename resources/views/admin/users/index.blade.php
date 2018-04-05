@@ -43,17 +43,6 @@
                          <label for="email">Email</label>
                        </div>
                      </div>
-                     {{-- <div class="row">
-                       <div class="file-field input-field col s12">
-                         <div class="btn">
-                           <span>File</span>
-                           <input id="file" name="file" type="file" class="validate">
-                         </div>
-                         <div class="file-path-wrapper">
-                           <input class="file-path validate" type="text">
-                         </div>
-                       </div>
-                     </div> --}}
                   </div>
                   <div class="modal-footer">
                     <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
