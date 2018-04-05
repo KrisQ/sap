@@ -8,7 +8,7 @@
           <div class="card">
             <div class="card-content">
               <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
-                <form id="createUserModalForm" class="col s12">
+                <form enctype="multipart/form-data" id="createUserModalForm" method="post" class="col s12 form" >
                   {{ csrf_field() }}
                   {{-- CREATE MODAL --}}
                   <div id="createUserModal" class="modal modal-fixed-footer">
@@ -43,23 +43,25 @@
                          <label for="email">Email</label>
                        </div>
                      </div>
-                     <div class="row">
+                     {{-- <div class="row">
                        <div class="file-field input-field col s12">
                          <div class="btn">
                            <span>File</span>
-                           <input type="file">
+                           <input id="file" name="file" type="file" class="validate">
                          </div>
                          <div class="file-path-wrapper">
                            <input class="file-path validate" type="text">
                          </div>
                        </div>
-                     </div>
+                     </div> --}}
                   </div>
                   <div class="modal-footer">
                     <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
-                    <input class="waves-effect waves-orange waves-orange btn-flat" id="newUser" type="button" value="Create">
+                    <button type="submit" class="waves-effect waves-orange btn-flat" id="newUser">Create</button>
                   </div>
                 </div>
+              </form>
+              <form class="editUserModalForm col s12">
               </form>
               <br><br>
               <table id="userTable" class="striped">
@@ -88,10 +90,12 @@
        "deferRender": true
     });
     //CREATE
-    $('#newUser').click(function(){
+    $('#createUserModalForm').submit(function(event){
+      event.preventDefault();
       $.ajax({
         method: 'POST',
         data: $('#createUserModalForm').serialize(),
+        processData: false,
         url: '/users/ajax_store',
         success: function(data) {
           console.log(data);
@@ -104,14 +108,36 @@
         },
       });
     });
-    //EDIT
-    $('#newUser').click(function(){
+    //EDIT MODAL
+    $('table').on('click','.edit',function(){
+      var id = $(this).data("id");
+      var token = $(this).data("token");
+      console.log(id);
       $.ajax({
-        method: 'POST',
-        data: $('#editUserModalForm').serialize(),
-        url: '/users/ajax_store',
+        method: 'GET',
+        data: {
+            "id": id,
+            "_token": token,
+        },
+        url: '/users/ajax_edit/'+id,
         success: function(data) {
-          console.log(data);
+          $('.editUserModalForm').html(data.html);
+          $('select').formSelect();
+          var elem = document.querySelector('.editUserModal');
+          var instance = M.Modal.init(elem);
+          M.updateTextFields();
+          instance.open();
+        },
+      });
+    });
+    //UPDATE
+    $('.editUserModalForm').on('click','.editUser',function(){
+      var id = $('.userEditId').val();
+      $.ajax({
+        method: 'PUT',
+        data: $('.editUserModalForm').serialize(),
+        url: '/users/ajax_update/'+id,
+        success: function(data) {
           if (data.errors) {
             $(".message").html(data.html);
           } else {
@@ -127,10 +153,9 @@
       var token = $(this).data("token");
       console.log(id);
       $.ajax({
-        type: 'DELETE',
+        method: 'DELETE',
         data: {
             "id": id,
-            "_method": 'DELETE',
             "_token": token,
         },
         url: '/users/ajax_delete/'+id,

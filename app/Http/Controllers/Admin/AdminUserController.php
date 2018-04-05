@@ -8,17 +8,12 @@ use App\User;
 use App\Role;
 use App\Http\Requests\UserRequest;
 use Validator;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 
 class AdminUserController extends Controller
 {
-
-    // protected $rules = [
-    //   'name' => 'required|min:2|max:32|regex:/^[a-z ,.\'-]+$/i',
-    //   'email' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i',
-    //   'password' => 'required|min:2|max:128|regex:/^[a-z ,.\'-]+$/i'
-    // ];
-
     /**
      * Display a listing of the resource.
      *
@@ -57,13 +52,14 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function ajax_store(Request $request)
     {
       $validator = Validator::make($request->all(), [
           'name' => 'required',
           'email' => 'required|email|unique:users',
           'password' => 'required',
-          'role_id' => 'required'
+          'role_id' => 'required',
       ]);
 
       if ($validator->fails())
@@ -77,12 +73,19 @@ class AdminUserController extends Controller
       $user = new User();
       $user->name = $request->name;
       $user->email = $request->email;
-      $user->password = $request->password;
+      $user->password =  bcrypt($request->password);
       $user->role_id = $request->role_id;
+      // $file = $request->file('file');
+      // if ($file) {
+      //     $name = time() . $file->getClientOriginalName();
+      //     $file->move('images', $name);
+      //     $photo = Photo::create(['name'=>$name]);
+      //     $user->photo_id = $request->photo_id;
+      // }
       $user->save();
       return response()->json([
         'success'=>'Record is successfully added',
-        'html' => view('includes.success')->render()
+        'html' => view('includes.success')->render(),
       ]);
     }
 
@@ -103,9 +106,14 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function ajax_edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return response()->json([
+          'success'=>'Record is successfully added',
+          'html' => view('admin.users._editUserModal', compact('user','roles'))->render()
+        ]);
     }
 
     /**
@@ -115,9 +123,33 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function ajax_update(Request $request, $id)
     {
-        //
+      $validator = Validator::make($request->all(), [
+          'name' => 'required',
+          'email' => 'required|email|unique:users,id,'.$id,
+          'password' => 'required',
+          'role_id' => 'required'
+      ]);
+
+      if ($validator->fails())
+      {
+          $errors = $validator->errors()->all();
+          return response()->json([
+            'errors'=>$validator->errors()->all(),
+            'html' => view('includes.errors', compact('errors'))->render()
+          ]);
+      }
+      $user = User::findOrFail($id);
+      $user->name = $request->name;
+      $user->email = $request->email;
+      $user->password = bcrypt($request->password);
+      $user->role_id = $request->role_id;
+      $user->save();
+      return response()->json([
+        'success'=>'Record is successfully added',
+        'html' => view('includes.success')->render()
+      ]);
     }
 
     /**

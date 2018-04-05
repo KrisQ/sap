@@ -27,3 +27,5 @@ Route::resource('/admin/users', 'Admin\AdminUserController');
 Route::get('/users/ajax_user', 'Admin\AdminUserController@ajax_userTable');
 Route::post('/users/ajax_store', 'Admin\AdminUserController@ajax_store');
 Route::delete('/users/ajax_delete/{id}', 'Admin\AdminUserController@ajax_destroy');
+Route::get('/users/ajax_edit/{id}', 'Admin\AdminUserController@ajax_edit');
+Route::put('/users/ajax_update/{id}', 'Admin\AdminUserController@ajax_update');

@@ -119,12 +119,8 @@
         <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
         <script src="{{ URL::asset('/js/materialize.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/js/general.js') }}" type="text/javascript"></script>
         <script>
-            $(document).ready(function() {
-                $(".dropdown-trigger").dropdown();
-                $('.sidenav').sidenav();
-            });
-
             @if(session('status'))
                 Materialize.toast('{{ session("status") }}', 4000);
             @endif

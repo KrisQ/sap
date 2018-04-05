@@ -110,14 +110,12 @@
         <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
         <script src="{{ URL::asset('/js/materialize.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/js/general.js') }}" type="text/javascript"></script>
         <script>
-            $(document).ready(function() {
-                $(".dropdown-trigger").dropdown();
-                $('.sidenav').sidenav();
-            });
             @if(session('status'))
                 Materialize.toast('{{ session("status") }}', 4000);
             @endif
         </script>
+        @yield('scripts')
     </body>
 </html>

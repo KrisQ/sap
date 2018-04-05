@@ -1,7 +1,6 @@
-<form id="createUserModalForm" class="col s12">
-  <input id="token" type="hidden" name="_token" value="{{csrf_token()}}">
-    {{-- EDIT MODAL --}}
-  <div id="createUserModal" class="modal modal-fixed-footer">
+  {{ csrf_field() }}
+  {{-- EDIT MODAL --}}
+  <div class="editUserModal modal modal-fixed-footer">
   <div class="modal-content">
     <h4>Edit User</h4>
     <hr>
@@ -9,19 +8,23 @@
 
     </div>
      <div class="row">
+       <input class="userEditId" type="hidden" name="id" value="{{$user->id}}">
        <div class="input-field col s4">
-         <input id="name" name="name" type="text" class="validate">
+         <input value="{{$user->name}}" class="name validate" name="name" type="text"></input>
          <label for="name">Name:</label>
        </div>
        <div class="input-field col s4">
-         <input id="password" name="password" type="password" class="validate">
+         <input value="{{$user->password}}" class="password validate" name="password" type="password">
          <label for="password">Password</label>
        </div>
        <div class="input-field col s4">
-         <select id="role_id" name="role_id">
-           <option value="" disabled selected>SELECT</option>
+         <select class="role_id" name="role_id">
             @foreach ($roles as $role)
-            <option value="{{$role->id}}">{{$role->name}}</option>
+              @if ($role == $user->role )
+                <option value="{{$role->id}}" selected>{{$role->name}}</option>
+              @else
+                <option value="{{$role->id}}">{{$role->name}}</option>
+              @endif
             @endforeach
          </select>
          <label for="role_id">Role</label>
@@ -29,25 +32,24 @@
      </div>
      <div class="row">
        <div class="input-field col s12">
-         <input id="email" name="email" type="email" class="validate">
+         <input value="{{$user->email}}" class="email validate" name="email" type="email">
          <label for="email">Email</label>
        </div>
      </div>
-     <div class="row">
+     {{-- <div class="row">
        <div class="file-field input-field col s12">
          <div class="btn">
            <span>File</span>
-           <input type="file">
+           <input type="file" name="photo_id" class="photo_id">
          </div>
          <div class="file-path-wrapper">
            <input class="file-path validate" type="text">
          </div>
        </div>
-     </div>
+     </div> --}}
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
-    <input class="waves-effect waves-orange waves-orange btn-flat" id="newUser" type="button" value="Create">
+    <a href="#!" class="editUser waves-effect waves-orange btn-flat">Edit</a>
   </div>
 </div>
-</form>
