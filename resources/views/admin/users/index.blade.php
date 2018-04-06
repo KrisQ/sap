@@ -64,6 +64,7 @@
                 <tbody>
                 </tbody>
               </table>
+
             </div>
           </div>
         </div>
@@ -73,14 +74,11 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.modal').modal();
-    $('select').formSelect();
-    //USER TABLE
     var oTable = $('#userTable').DataTable( {
        "ajax": "/users/ajax_user",
        "deferRender": true
     });
-    //CREATE USER
+    //CREATE
     $('#createUserModalForm').submit(function(event){
       event.preventDefault();
       $.ajax({
@@ -99,7 +97,7 @@
         },
       });
     });
-    //EDIT MODAL USER
+    //EDIT MODAL
     $('table').on('click','.edit',function(){
       var id = $(this).data("id");
       var token = $(this).data("token");
@@ -121,7 +119,7 @@
         },
       });
     });
-    //UPDATE USER
+    //UPDATE
     $('.editUserModalForm').on('click','.editUser',function(){
       var id = $('.userEditId').val();
       $.ajax({
@@ -138,7 +136,7 @@
         },
       });
     });
-    //DELETE USER
+    //DELETE
     $('table').on('click','.delete',function(){
       var id = $(this).data("id");
       var token = $(this).data("token");
@@ -155,6 +153,9 @@
         },
       });
     });
+    $('.modal').modal();
+    $('select').formSelect();
+
   });
 </script>
 @endsection
