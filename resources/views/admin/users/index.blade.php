@@ -155,7 +155,6 @@
     });
     $('.modal').modal();
     $('select').formSelect();
-
   });
 </script>
 @endsection

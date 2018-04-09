@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Role;
-use App\Http\Requests\UserRequest;
 use Validator;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
-
 
 class AdminUserController extends Controller
 {
@@ -43,7 +39,7 @@ class AdminUserController extends Controller
       $returnData = array(
         'data' => $data
       );
-      return $returnData;
+        return $returnData;
     }
 
     /**

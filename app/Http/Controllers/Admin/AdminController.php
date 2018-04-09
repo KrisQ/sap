@@ -7,10 +7,7 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
-    //Clean up routes
-
-    public function index()
-    {
-        return view('admin.index');
-    }
+  public function index(){
+    return view('admin.index');
+  }
 }
