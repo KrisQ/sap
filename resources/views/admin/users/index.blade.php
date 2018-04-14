@@ -74,24 +74,15 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-<<<<<<< HEAD
-
-    //USER TABLE
-=======
->>>>>>> bc75b1bac39169d118c2ffe08be16008e2244aff
     var oTable = $('#userTable').DataTable( {
        "ajax": "/users/ajax_user",
        "deferRender": true,
 
     });
-<<<<<<< HEAD
     $('.modal').modal();
     $('select').formSelect();
 
     //CREATE USER
-=======
-    //CREATE
->>>>>>> bc75b1bac39169d118c2ffe08be16008e2244aff
     $('#createUserModalForm').submit(function(event){
       event.preventDefault();
       $.ajax({
