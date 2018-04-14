@@ -64,6 +64,7 @@
                 <tbody>
                 </tbody>
               </table>
+
             </div>
           </div>
         </div>
@@ -73,17 +74,24 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
+<<<<<<< HEAD
 
     //USER TABLE
+=======
+>>>>>>> bc75b1bac39169d118c2ffe08be16008e2244aff
     var oTable = $('#userTable').DataTable( {
        "ajax": "/users/ajax_user",
        "deferRender": true,
 
     });
+<<<<<<< HEAD
     $('.modal').modal();
     $('select').formSelect();
 
     //CREATE USER
+=======
+    //CREATE
+>>>>>>> bc75b1bac39169d118c2ffe08be16008e2244aff
     $('#createUserModalForm').submit(function(event){
       event.preventDefault();
       $.ajax({
@@ -102,7 +110,7 @@
         },
       });
     });
-    //EDIT MODAL USER
+    //EDIT MODAL
     $('table').on('click','.edit',function(){
       var id = $(this).data("id");
       var token = $(this).data("token");
@@ -125,7 +133,7 @@
         },
       });
     });
-    //UPDATE USER
+    //UPDATE
     $('.editUserModalForm').on('click','.editUser',function(){
       var id = $('.userEditId').val();
       $.ajax({
@@ -142,7 +150,7 @@
         },
       });
     });
-    //DELETE USER
+    //DELETE
     $('table').on('click','.delete',function(){
       var id = $(this).data("id");
       var token = $(this).data("token");
@@ -159,6 +167,8 @@
         },
       });
     });
+    $('.modal').modal();
+    $('select').formSelect();
   });
 </script>
 @endsection

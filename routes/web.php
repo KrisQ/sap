@@ -23,7 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'Admin\AdminController@index')->name('admin');
 Route::resource('/admin/users', 'Admin\AdminUserController');
-
 Route::get('/users/ajax_user', 'Admin\AdminUserController@ajax_userTable');
 Route::post('/users/ajax_store', 'Admin\AdminUserController@ajax_store');
 Route::delete('/users/ajax_delete/{id}', 'Admin\AdminUserController@ajax_destroy');
