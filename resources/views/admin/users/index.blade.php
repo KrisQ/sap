@@ -155,6 +155,7 @@
         url: '/users/ajax_delete/'+id,
         success: function(data) {
           oTable.ajax.reload( null, false );
+          console.log(data);
         },
       });
     });
