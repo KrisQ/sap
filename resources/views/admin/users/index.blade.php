@@ -73,13 +73,16 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.modal').modal();
-    $('select').formSelect();
+
     //USER TABLE
     var oTable = $('#userTable').DataTable( {
        "ajax": "/users/ajax_user",
-       "deferRender": true
+       "deferRender": true,
+
     });
+    $('.modal').modal();
+    $('select').formSelect();
+
     //CREATE USER
     $('#createUserModalForm').submit(function(event){
       event.preventDefault();
@@ -114,6 +117,7 @@
         success: function(data) {
           $('.editUserModalForm').html(data.html);
           $('select').formSelect();
+
           var elem = document.querySelector('.editUserModal');
           var instance = M.Modal.init(elem);
           M.updateTextFields();

@@ -124,6 +124,11 @@
             @if(session('status'))
                 Materialize.toast('{{ session("status") }}', 4000);
             @endif
+            $(document).ready(function() {
+                $('select').formSelect();
+                $(".dropdown-trigger").dropdown();
+                $('.sidenav').sidenav();
+            });
         </script>
         @yield('scripts')
     </body>
