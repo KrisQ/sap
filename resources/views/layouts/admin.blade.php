@@ -1,4 +1,4 @@
-Tr0ca<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     <head>
         <title>{{ config('app.name', 'Laravel') }}</title>
