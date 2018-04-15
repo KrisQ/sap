@@ -16,6 +16,8 @@
                 display: flex;
                 min-height: 100vh;
                 flex-direction: column;
+                background-color: #eceff1;
+
             }
             main {
                 flex: 1 0 auto;

@@ -4,10 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col l12 s12">
-          <h4>Users</h4>
           <div class="card">
             <div class="card-content">
-              <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
+              <div class="row">
+                <div class="card-title col s10">
+                  <h4>Users</h4>
+                </div>
+                <div class="col s2">
+                  <br>
+                  <button data-target="createUserModal" class="btn waves-effect modal-trigger">Create User</button>
+                </div>
+              </div>
+              <hr>
                 <form enctype="multipart/form-data" id="createUserModalForm" method="post" class="col s12 form" >
                   {{ csrf_field() }}
                   {{-- CREATE MODAL --}}
