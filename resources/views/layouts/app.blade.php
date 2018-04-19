@@ -52,6 +52,7 @@
               <ul class="right hide-on-med-and-down">
                 <!-- Dropdown Trigger -->
                 <li><a href="/home">Home</a></li>
+                <li><a href="/questions">Questions</a></li>
 
                 <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">  <i class="material-icons">person arrow_drop_down</i></a></li>
                 <ul id="dropdown1" class="dropdown-content">
@@ -110,13 +111,20 @@
             </div>
         </footer>
         <!-- Scripts -->
+        <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
         <script src="{{ URL::asset('/js/materialize.js') }}" type="text/javascript"></script>
         <script src="{{ URL::asset('/js/general.js') }}" type="text/javascript"></script>
         <script>
             @if(session('status'))
                 Materialize.toast('{{ session("status") }}', 4000);
             @endif
+            $(document).ready(function() {
+                $('select').formSelect();
+                $(".dropdown-trigger").dropdown();
+                $('.sidenav').sidenav();
+            });
         </script>
         @yield('scripts')
     </body>

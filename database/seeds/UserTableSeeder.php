@@ -11,14 +11,15 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-      for($i = 0; $i < 2098; $i++){
-        DB::table('users')->insert([
-          'name' => str_random(11),
-          'email' => str_random(11).'@yahoo.com',
-          'password' => bcrypt('secret'),
-          'role_id' => 2,
-          'is_active' => 1
-        ]);
-      }
+      factory(App\User::class, 10)->create();
+      // for($i = 0; $i < 2098; $i++){
+      //   DB::table('users')->insert([
+      //     'name' => str_random(11),
+      //     'email' => str_random(11).'@yahoo.com',
+      //     'password' => bcrypt('secret'),
+      //     'role_id' => 2,
+      //     'is_active' => 1
+      //   ]);
+      // }
     }
 }

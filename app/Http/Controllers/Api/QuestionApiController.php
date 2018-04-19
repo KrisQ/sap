@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Question;
-
 use Illuminate\Http\Request;
+use App\Http\Resources\QuestionsResources;
+use App\Http\Controllers\Controller;
 
-class QuestionsController extends Controller
+class QuestionApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-      $questions = Question::orderBy('popularity', 'desc')->paginate(20);
+     public function index()
+     {
+         //Get Articles
+         $questions = Question::orderBy('popularity', 'desc')->paginate(20);
+         //Return Collection of Articles as a Resource
+         return QuestionsResources::collection($questions);
 
-      return view('questions', compact('questions'));
-    }
+     }
 
     /**
      * Show the form for creating a new resource.

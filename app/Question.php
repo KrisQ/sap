@@ -16,8 +16,13 @@ class Question extends Model
     public function user(){
       return $this->belongsTo('App\User');
     }
-
-    public function photo(){
-      return $this->belongsTo('App\Photo');
+    public function teamOne(){
+      return $this->belongsTo('App\Team');
+    }
+    public function teamTwo(){
+      return $this->belongsTo('App\Team');
+    }
+    public function arguments(){
+      return $this->hasMany('App\Argument');
     }
 }
